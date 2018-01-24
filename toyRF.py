@@ -90,3 +90,6 @@ class LinearModel(object):
             innerProduct = innerProduct + self.model[element]*obs[element]
 
         return 1 if innerProduct > 0 else -1
+
+if __name__ == '__main__':
+    env = EasyEnv()
