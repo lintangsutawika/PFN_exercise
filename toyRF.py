@@ -38,7 +38,7 @@ class EasyEnv:
     def test(self):
         pass
 
-class CartEnv(object):
+class CartPoleEnv(object):
     def __init__(self):
         self.prev_obs = 0
         self.resetState = 0
@@ -78,8 +78,15 @@ class CartEnv(object):
 
     def test(self):
         pass
+
 class LinearModel(object):
     """docstring for LinearModel"""
-    def __init__(self):
-        pass
+    def __init__(self, init_param):
+        self.model = init_param
         
+    def action(self, obs):
+        innerProduct = 0
+        for element in len(obs):
+            innerProduct = innerProduct + self.model[element]*obs[element]
+
+        return 1 if innerProduct > 0 else -1
