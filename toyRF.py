@@ -65,7 +65,7 @@ class CartPoleEnv(object):
         return self.resetState
 
     def obs_dim(self):
-        return 1
+        return 4
 
     def step(self, action):
         sys.stdout.flush()
@@ -110,17 +110,17 @@ class LinearModel(object):
     """docstring for LinearModel"""
     def __init__(self, init_param):
         self.model = init_param
-        
+        self.CartPoleEnv = CartPoleEnv()
+
     def action(self, obs):
         innerProduct = 0
-        for element in len(obs):
+        for element in range(len(obs)):
             innerProduct = innerProduct + self.model[element]*obs[element]
-
+        
         return 1 if innerProduct > 0 else -1
 
     def obs_dim(self):
-        pass
-
+        4
 
 
 if __name__ == '__main__':
