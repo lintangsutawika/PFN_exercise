@@ -109,19 +109,18 @@ class CartPoleEnv(object):
 class LinearModel(object):
     """docstring for LinearModel"""
     def __init__(self, init_param):
-        self.model = init_param
+        self.param = init_param
         self.CartPoleEnv = CartPoleEnv()
 
     def action(self, obs):
         innerProduct = 0
         for element in range(len(obs)):
-            innerProduct = innerProduct + self.model[element]*obs[element]
+            innerProduct = innerProduct + self.param[element]*obs[element]
         
         return 1 if innerProduct > 0 else -1
 
     def obs_dim(self):
         4
-
 
 if __name__ == '__main__':
     env = EasyEnv()
