@@ -39,8 +39,6 @@ class EasyEnv:
         
         return [self.new_obs, stopSignal, reward]
         
-        
-
     def test(self):
         pass
 
@@ -52,10 +50,16 @@ class CartPoleEnv(object):
         self.stepNum = 0
         self.new_obs = 0
 
-    def reset(self, states):
-        print('r obs {} {} {} {}'.format())
+    def reset(self):
+        print('r')
         sys.stdout.flush()
-        self.resetState = randint(0,1)*2-1
+
+        # receive initial observation
+        feedback = input()
+        feedback = feedback.split()
+        sys.stderr.write('Reset: {}\n'.format(feedback))
+
+        self.resetState = feedback
         self.resetFlag = 1
         self.stepNum = 0
         return self.resetState
@@ -64,10 +68,27 @@ class CartPoleEnv(object):
         return 1
 
     def step(self, action):
+        sys.stdout.flush()
+        action = randint(0, 1) * 2 - 1
         print('s {}'.format(action))
+        sys.stdout.flush()
+
+        # receive observation after the action
+        feedback = input()
+        feedback = feedback.split()
+        # sys.stderr.write('{}\n'.format(feedback))
+
+        if feedback[0] == 'done':
+            sys.stderr.write('{}\n'.format(feedback))
+            sys.exit()
+            pass
+
         if self.stepNum >= 500:
             stopSignal = 1
             self.stepNum = 0
+            print('q')
+            sys.stdout.flush()
+
         else:
             stopSignal = 0
             self.stepNum += 1
@@ -78,7 +99,7 @@ class CartPoleEnv(object):
         else:
             prev_obs = self.new_obs  
 
-        self.new_obs = randint(0,1)*2-1
+        self.new_obs = feedback[1:]
         reward = 1
         return [self.new_obs, stopSignal, reward]
 
