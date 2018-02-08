@@ -1,4 +1,5 @@
 from random import *
+import sys
 
 class EasyEnv:
     def __init__(self):
@@ -21,6 +22,8 @@ class EasyEnv:
         if self.stepNum >= 10:
             stopSignal = 1
             self.stepNum = 0
+            sys.exit("Environment ends")
+
         else:
             stopSignal = 0
             self.stepNum += 1
@@ -33,7 +36,10 @@ class EasyEnv:
 
         self.new_obs = randint(0,1)*2-1
         reward = action * prev_obs
+        
         return [self.new_obs, stopSignal, reward]
+        
+        
 
     def test(self):
         pass
@@ -90,6 +96,11 @@ class LinearModel(object):
             innerProduct = innerProduct + self.model[element]*obs[element]
 
         return 1 if innerProduct > 0 else -1
+
+    def obs_dim(self):
+        pass
+
+
 
 if __name__ == '__main__':
     env = EasyEnv()
